@@ -5,20 +5,20 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const Header = () => {
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" expand='lg'>
             <Container>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand >Ecom</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-end">
-                    <Nav>
+                <Navbar.Collapse id="basic-navbar-nav" className="d-lg-flex justify-content-lg-end">
+                    <Nav >
                         <LinkContainer to="/">
                             <Nav.Link>Home</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="/login">
                             <Nav.Link>Login</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/register">
-                            <Nav.Link>Register</Nav.Link>
+                        <LinkContainer to="/signup">
+                            <Nav.Link>Signup</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="/checkout">
                             <Nav.Link> <Badge bg="primary" text="white"> <FaCartArrowDown></FaCartArrowDown> 1</Badge></Nav.Link>
