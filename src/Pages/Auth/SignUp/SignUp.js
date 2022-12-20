@@ -24,12 +24,11 @@ const SignUp = () => {
         axios.post('http://localhost:5000/signup', user)
             .then(res => {
                 if (res.data.acknowledged) {
-                    successToast('Signup successful!')
+                    successToast('Account successfully created!')
                     setLoad(false)
                     reset()
                 }
             })
-
     }
 
 
