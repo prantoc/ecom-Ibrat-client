@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { successToast } from '../../../toast/Toaster';
 
 
 const SignUp = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const [load, setLoad] = useState(false);
 
     //? Signup function
     const handleSignUp = data => {
-        const { name, email, password, type } = data
+        setLoad(true)
+        const { name, email, password } = data
         const user = {
             name,
             email,
-            role: type,
-            verified: false
+            password,
         }
+
+        axios.post('http://localhost:5000/signup', user)
+            .then(res => {
+                if (res.data.acknowledged) {
+                    successToast('Signup successful!')
+                    setLoad(false)
+                    reset()
+                }
+            })
 
     }
 
@@ -48,7 +60,14 @@ const SignUp = () => {
                             {errors.password && <p className='text-danger fw-bold my-1' role="alert">{errors.password?.message}</p>}
                         </div>
                         <button type="submit" className="btn btn-primary text-center col-12  rounded">
-                            SignUp <FaArrowRight></FaArrowRight>
+                            {load
+                                ?
+                                <div className="spinner-border text-dark" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                                :
+                                <>SignUp <FaArrowRight></FaArrowRight></>
+                            }
                         </button>
                     </form>
                     <div className="form-text text-center p-2 mt-3">Have an account? <Link to="/login">Login</Link></div>
