@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Badge, Container, Nav, Navbar } from 'react-bootstrap';
+import { FaCartArrowDown } from 'react-icons/fa';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const Header = () => {
     return (
@@ -7,21 +9,21 @@ const Header = () => {
             <Container>
                 <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Another action
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-end">
+                    <Nav>
+                        <LinkContainer to="/">
+                            <Nav.Link>Home</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/login">
+                            <Nav.Link>Login</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/register">
+                            <Nav.Link>Register</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/checkout">
+                            <Nav.Link> <Badge bg="primary" text="white"> <FaCartArrowDown></FaCartArrowDown> 1</Badge></Nav.Link>
+                        </LinkContainer>
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>
