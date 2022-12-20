@@ -1,14 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaArrowRight } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { errorToast, successToast } from '../../../toast/Toaster';
 
 const Login = () => {
-
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
+    const [load, setLoad] = useState(false);
     const handleLogin = data => {
+        setLoad(true)
         const { email, password } = data
+
+        axios.get(`http://localhost:5000/login?email=${email}&password=${password}`)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.accessToken !== '') {
+                    successToast('Successfully login!')
+                    const token = res.data.accessToken
+                    const name = res.data.name
+                    const email = res.data.email
+                    const data = { token, name, email }
+                    localStorage.setItem('ecom', JSON.stringify(data))
+                    setLoad(false)
+                    reset()
+                    navigate('/')
+                } else {
+                    setLoad(false)
+                    successToast('Successfully login!')
+                }
+            })
+            .catch(err => {
+                setLoad(false)
+                errorToast("Login credential doesn't matched with our record!")
+                console.log(err);
+            })
+
+
+
     }
 
     return (
@@ -33,7 +64,15 @@ const Login = () => {
                             {errors.password && <p className='text-danger fw-bold my-1' role="alert">{errors.password?.message}</p>}
                         </div>
                         <button type="submit" className="btn btn-primary text-center col-12  rounded">
-                            Login <FaArrowRight></FaArrowRight>
+
+                            {load
+                                ?
+                                <div className="spinner-border text-dark" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                                :
+                                <>Login <FaArrowRight></FaArrowRight></>
+                            }
                         </button>
                     </form>
                     <div className="form-text text-center p-2 mt-3">Doesn't have an account? <Link to="/signup">Create new Acoount</Link></div>
