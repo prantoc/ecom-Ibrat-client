@@ -11,7 +11,7 @@ const Loader = () => {
                 color="#0d6efd"
                 ariaLabel="three-dots-loading"
                 wrapperStyle={{}}
-                wrapperClassName=""
+                wrapperClassName="mx-auto d-flex align-center"
                 visible={true}
             />
         </>

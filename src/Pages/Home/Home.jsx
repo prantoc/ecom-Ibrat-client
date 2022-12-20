@@ -18,7 +18,7 @@ const Home = () => {
         <Container className='mt-4'>
             <Row>
                 {
-                    isLoading && <Col md={4} className="mx-auto"> <Loader></Loader></Col>
+                    isLoading && <Col md={4} className="mx-auto d-flex align-center"> <Loader></Loader></Col>
                 }
 
                 {
