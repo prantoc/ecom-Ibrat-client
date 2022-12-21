@@ -15,10 +15,12 @@ const Card = ({ product }) => {
     const [cartValue, setCartValue] = useState({});
     // useCart(cartValue);
     const addToCart = (email, id) => {
+        const { token } = JSON.parse(localStorage.getItem('ecom'))
+        console.log(token);
         const config = {
             headers: {
                 'content-type': 'application/json',
-                authorization: `bearer ${localStorage.getItem('ecom')}`
+                authorization: `bearer ${token}`
             }
         }
         const cart = {
