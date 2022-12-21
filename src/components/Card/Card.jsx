@@ -48,8 +48,23 @@ const Card = ({ product }) => {
                     <p className="card-text">Price: ${price} </p>
                     <p className="card-text">Seller: {seller} </p>
                 </div>
-                <Button variant='danger' onClick={() => addToCart(user?.email, _id)}>  Add to Cart
-                    <FaCartArrowDown></FaCartArrowDown></Button>
+                {
+                    user?.token
+                        ?
+                        <Button variant='danger' onClick={() => addToCart(user?.email, _id)}>  Add to Cart
+                            <FaCartArrowDown></FaCartArrowDown>
+                        </Button>
+                        :
+                        <Button variant='danger'>
+
+                            <LinkContainer to="/login">
+                                <Nav.Link>
+                                    Add to Cart
+                                    <FaCartArrowDown></FaCartArrowDown>
+                                </Nav.Link>
+                            </LinkContainer>
+                        </Button>
+                }
             </div>
         </>
 
