@@ -10,7 +10,6 @@ const Home = () => {
     const { data: products, isLoading, error, isError } = useQuery({
         queryKey: ['products'],
         queryFn: () => fetch('http://localhost:5000/products').then(res => res.json())
-
     })
     if (isError) {
         return <span>Error: {error.message}</span>
@@ -24,7 +23,7 @@ const Home = () => {
 
                 {
                     products?.map(product =>
-                        <Col md={4} key={product._id} className="mb-3 text-center">
+                        <Col lg={4} md={6} sm={12} key={product._id} className="mb-3 text-center">
                             <Card product={product}></Card>
                         </Col>
                     )

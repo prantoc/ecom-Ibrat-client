@@ -1,9 +1,42 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import { Button, Nav } from 'react-bootstrap';
 import { FaCartArrowDown } from 'react-icons/fa';
+import { LinkContainer } from 'react-router-bootstrap';
+import { AuthContext } from '../../contexts/AuthProvider';
+import { useCart } from '../../hooks/useCart';
+import { successToast } from '../../toast/Toaster';
+
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 
 const Card = ({ product }) => {
-    const { img, name, price, seller } = product;
+    const { user } = useContext(AuthContext);
+    const { _id, img, name, price, seller } = product;
+    const [cartValue, setCartValue] = useState({});
+    // useCart(cartValue);
+    const addToCart = (email, id) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('ecom')}`
+            }
+        }
+        const cart = {
+            email,
+            productId: id,
+            quantity: 1,
+            price
+        }
+
+        axios.post('http://localhost:5000/add-cart', cart, config)
+            .then(res => {
+                if (res.data.acknowledged) {
+                    successToast('Product Added !')
+                }
+            })
+    }
+
+
     return (
         <>
             <div className="card mx-auto" style={{ width: '20rem' }}>
@@ -13,7 +46,8 @@ const Card = ({ product }) => {
                     <p className="card-text">Price: ${price} </p>
                     <p className="card-text">Seller: {seller} </p>
                 </div>
-                <PrimaryButton variant='primary'>Add to cart <FaCartArrowDown></FaCartArrowDown></PrimaryButton>
+                <Button variant='danger' onClick={() => addToCart(user?.email, _id)}>  Add to Cart
+                    <FaCartArrowDown></FaCartArrowDown></Button>
             </div>
         </>
 

@@ -9,8 +9,6 @@ const AuthProvider = ({ children }) => {
 
 
     //signout user
-
-
     useEffect(() => {
         if (logout === true) {
             setLogout(true)
