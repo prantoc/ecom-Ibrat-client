@@ -1,9 +1,14 @@
-import React from 'react';
-import { Badge, Container, Nav, Navbar } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Badge, Container, Dropdown, Image, Nav, Navbar } from 'react-bootstrap';
 import { FaCartArrowDown } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
-
+import { AuthContext } from '../../../contexts/AuthProvider';
+import avatar from '../../../assets/main/man.png'
 const Header = () => {
+    const { user, setLogout } = useContext(AuthContext)
+    const userLogout = () => {
+        setLogout(true)
+    }
     return (
         <Navbar bg="dark" variant="dark" expand='lg'>
             <Container>
@@ -14,12 +19,32 @@ const Header = () => {
                         <LinkContainer to="/">
                             <Nav.Link>Home</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/login">
-                            <Nav.Link>Login</Nav.Link>
-                        </LinkContainer>
-                        <LinkContainer to="/signup">
-                            <Nav.Link>Signup</Nav.Link>
-                        </LinkContainer>
+                        {
+                            user?.token
+                                ?
+                                <>
+                                    <Dropdown>
+                                        <Dropdown.Toggle className='border-0 pt-0 mt-0' variant="outline-light" id="dropdown-basic">
+                                            <Image roundedCircle style={{ height: '38px' }} src={avatar} />
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className='position-absolute end-100 translate-middle-x' style={{ zIndex: '9999' }}>
+                                            <Dropdown.Item >{user?.name}</Dropdown.Item>
+                                            <Dropdown.Item onClick={userLogout}>Logout</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+
+                                </>
+                                :
+                                <>
+                                    <LinkContainer to="/login">
+                                        <Nav.Link>Login</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/signup">
+                                        <Nav.Link>Signup</Nav.Link>
+                                    </LinkContainer>
+                                </>
+                        }
+
                         <LinkContainer to="/checkout">
                             <Nav.Link> <Badge bg="primary" text="white"> <FaCartArrowDown></FaCartArrowDown> 1</Badge></Nav.Link>
                         </LinkContainer>

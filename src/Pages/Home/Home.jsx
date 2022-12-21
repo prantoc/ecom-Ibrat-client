@@ -4,7 +4,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Card from '../../components/Card/Card';
 import Loader from '../../components/Loader/Loader';
 
+
 const Home = () => {
+
     const { data: products, isLoading, error, isError } = useQuery({
         queryKey: ['products'],
         queryFn: () => fetch('http://localhost:5000/products').then(res => res.json())
@@ -13,7 +15,6 @@ const Home = () => {
     if (isError) {
         return <span>Error: {error.message}</span>
     }
-    console.log(products);
     return (
         <Container className='mt-4'>
             <Row>

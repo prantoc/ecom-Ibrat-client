@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaArrowRight } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { errorToast, successToast } from '../../../toast/Toaster';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Login = () => {
+    const { setUser } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
@@ -26,7 +28,12 @@ const Login = () => {
                     localStorage.setItem('ecom', JSON.stringify(data))
                     setLoad(false)
                     reset()
+                    const cuser = JSON.parse(localStorage.getItem('ecom'))
+                    if (cuser) {
+                        setUser(cuser);
+                    }
                     navigate('/')
+
                 } else {
                     setLoad(false)
                     successToast('Successfully login!')
