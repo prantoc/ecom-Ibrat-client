@@ -5,10 +5,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import avatar from '../../../assets/main/man.png'
 const Header = () => {
-    const { user, setLogout } = useContext(AuthContext)
+    const { user, setLogout, cart } = useContext(AuthContext)
     const userLogout = () => {
         setLogout(true)
     }
+    console.log(cart);
     return (
         <Navbar bg="dark" variant="dark" expand='lg'>
             <Container>
@@ -46,7 +47,7 @@ const Header = () => {
                         }
 
                         <LinkContainer to="/checkout">
-                            <Nav.Link> <Badge bg="primary" text="white"> <FaCartArrowDown></FaCartArrowDown> 1</Badge></Nav.Link>
+                            <Nav.Link> <Badge bg="primary" text="white"> <FaCartArrowDown></FaCartArrowDown> {cart ? cart?.length : 0}</Badge></Nav.Link>
                         </LinkContainer>
 
                     </Nav>

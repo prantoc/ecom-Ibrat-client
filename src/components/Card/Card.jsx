@@ -1,22 +1,18 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Button, Nav } from 'react-bootstrap';
 import { FaCartArrowDown } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { AuthContext } from '../../contexts/AuthProvider';
-import { useCart } from '../../hooks/useCart';
 import { successToast } from '../../toast/Toaster';
 
-import PrimaryButton from '../PrimaryButton/PrimaryButton';
-
 const Card = ({ product }) => {
-    const { user } = useContext(AuthContext);
+    const { user, refetch } = useContext(AuthContext);
     const { _id, img, name, price, seller } = product;
-    const [cartValue, setCartValue] = useState({});
+    // const [cartValue, setCartValue] = useState({});
     // useCart(cartValue);
     const addToCart = (email, id) => {
         const { token } = JSON.parse(localStorage.getItem('ecom'))
-        console.log(token);
         const config = {
             headers: {
                 'content-type': 'application/json',
@@ -34,6 +30,7 @@ const Card = ({ product }) => {
             .then(res => {
                 if (res.data.acknowledged) {
                     successToast('Product Added !')
+                    refetch();
                 }
             })
     }
@@ -55,7 +52,7 @@ const Card = ({ product }) => {
                             <FaCartArrowDown></FaCartArrowDown>
                         </Button>
                         :
-                        <Button variant='danger'>
+                        <Button variant='primary'>
 
                             <LinkContainer to="/login">
                                 <Nav.Link>
