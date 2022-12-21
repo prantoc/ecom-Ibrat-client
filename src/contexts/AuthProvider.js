@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     // const { token } = JSON.parse(localStorage.getItem('ecom'))
     const { data: cart, refetch } = useQuery({
         queryKey: ['cart', user?.email, user?.token],
-        queryFn: () => fetch(`http://localhost:5000/storedProducts?email=${user?.email}`, {
+        queryFn: () => fetch(`https://ecom-server-kappa.vercel.app/storedProducts?email=${user?.email}`, {
             headers: {
                 authorization: `bearer ${user?.token}`
             }
@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
     //             authorization: `bearer ${token}`
     //         }
     //     }
-    //     axios.get(`http://localhost:5000/storedProducts?email=${user?.email}`, config)
+    //     axios.get(`https://ecom-server-kappa.vercel.app/storedProducts?email=${user?.email}`, config)
     //         .then(res => {
     //             console.log(res);
     //             setCart(res)

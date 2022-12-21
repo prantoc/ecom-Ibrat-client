@@ -16,7 +16,7 @@ const Login = () => {
         setLoad(true)
         const { email, password } = data
 
-        axios.get(`http://localhost:5000/login?email=${email}&password=${password}`)
+        axios.get(`https://ecom-server-kappa.vercel.app/login?email=${email}&password=${password}`)
             .then(res => {
                 console.log(res.data);
                 if (res.data.accessToken !== '') {

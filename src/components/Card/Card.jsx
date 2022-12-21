@@ -26,7 +26,7 @@ const Card = ({ product }) => {
             name
         }
 
-        axios.post('http://localhost:5000/add-cart', cart, config)
+        axios.post('https://ecom-server-kappa.vercel.app/add-cart', cart, config)
             .then(res => {
                 if (res.data.acknowledged) {
                     successToast('Product Added !')

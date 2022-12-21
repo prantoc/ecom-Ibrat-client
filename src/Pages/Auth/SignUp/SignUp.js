@@ -21,7 +21,7 @@ const SignUp = () => {
             password,
         }
 
-        axios.post('http://localhost:5000/signup', user)
+        axios.post('https://ecom-server-kappa.vercel.app/signup', user)
             .then(res => {
                 if (res.data.acknowledged) {
                     successToast('Account successfully created!')

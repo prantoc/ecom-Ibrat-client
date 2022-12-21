@@ -9,7 +9,7 @@ const Home = () => {
 
     const { data: products, isLoading, error, isError } = useQuery({
         queryKey: ['products'],
-        queryFn: () => fetch('http://localhost:5000/products').then(res => res.json())
+        queryFn: () => fetch('https://ecom-server-kappa.vercel.app/products').then(res => res.json())
     })
     if (isError) {
         return <span>Error: {error.message}</span>
