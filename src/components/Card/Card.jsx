@@ -9,8 +9,6 @@ import { successToast } from '../../toast/Toaster';
 const Card = ({ product }) => {
     const { user, refetch } = useContext(AuthContext);
     const { _id, img, name, price, seller } = product;
-    // const [cartValue, setCartValue] = useState({});
-    // useCart(cartValue);
     const addToCart = (email, id) => {
         const { token } = JSON.parse(localStorage.getItem('ecom'))
         const config = {
@@ -23,7 +21,9 @@ const Card = ({ product }) => {
             email,
             productId: id,
             quantity: 1,
-            price
+            price,
+            img,
+            name
         }
 
         axios.post('http://localhost:5000/add-cart', cart, config)
@@ -48,7 +48,8 @@ const Card = ({ product }) => {
                 {
                     user?.token
                         ?
-                        <Button variant='danger' onClick={() => addToCart(user?.email, _id)}>  Add to Cart
+                        <Button variant='primary' onClick={() => addToCart(user?.email, _id)}>
+                            Add to Cart
                             <FaCartArrowDown></FaCartArrowDown>
                         </Button>
                         :

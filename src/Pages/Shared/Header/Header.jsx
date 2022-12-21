@@ -9,7 +9,6 @@ const Header = () => {
     const userLogout = () => {
         setLogout(true)
     }
-    console.log(cart);
     return (
         <Navbar bg="dark" variant="dark" expand='lg'>
             <Container>
