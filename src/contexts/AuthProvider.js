@@ -27,12 +27,12 @@ const AuthProvider = ({ children }) => {
             setUser(cuser);
         }
     }, [setUser])
-    const { token } = JSON.parse(localStorage.getItem('ecom'))
+    // const { token } = JSON.parse(localStorage.getItem('ecom'))
     const { data: cart, refetch } = useQuery({
-        queryKey: ['cart', user?.email, token],
+        queryKey: ['cart', user?.email, user?.token],
         queryFn: () => fetch(`http://localhost:5000/storedProducts?email=${user?.email}`, {
             headers: {
-                authorization: `bearer ${token}`
+                authorization: `bearer ${user?.token}`
             }
         }).then(res => res.json())
     })

@@ -4,6 +4,7 @@ import { FaCartArrowDown } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import avatar from '../../../assets/main/man.png'
+import { Link } from 'react-router-dom';
 const Header = () => {
     const { user, setLogout, cart } = useContext(AuthContext)
     const userLogout = () => {
@@ -29,6 +30,7 @@ const Header = () => {
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu className='position-absolute end-100 translate-middle-x' style={{ zIndex: '9999' }}>
                                             <Dropdown.Item >{user?.name}</Dropdown.Item>
+                                            <Dropdown.Item ><Link className='nav-link text-dark' to='checkout'>Checkout</Link></Dropdown.Item>
                                             <Dropdown.Item onClick={userLogout}>Logout</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

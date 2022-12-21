@@ -4,10 +4,13 @@ import Login from "../../Pages/Auth/Login/Login";
 import SignUp from "../../Pages/Auth/SignUp/SignUp";
 import Checkout from "../../Pages/Checkout/Checkout";
 import Home from "../../Pages/Home/Home";
+import Error from "../../Pages/Shared/Error/Error";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />,
+        errorElement: <Error></Error>,
         children: [
             {
                 path: "/",
@@ -23,7 +26,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/checkout",
-                element: <Checkout></Checkout>
+                element: <PrivateRoute><Checkout></Checkout></PrivateRoute>
             },
         ]
     },
